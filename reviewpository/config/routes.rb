@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'items/query', to: 'items#query'
   get 'account/settings', to: 'users#edit'
   get 'items/listing', to: 'items#index'
+  get 'user/items', to: 'items#user_items'
 
   resources :users, except: [:edit, :new, :create]
   resources :items, except: [:index]
