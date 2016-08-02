@@ -1,0 +1,22 @@
+<h1>Create Item</h1>
+
+<%= form_tag("/items", method: "post") do %>
+  <div class="form-group">
+  <%= label_tag(:category, "Category") %>
+  <%= select_tag(:category, options_for_select([['Book','book'],['Music','music'],['Movie','movie']]), class: "form-control") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:name, "Name") %>
+  <%= text_field_tag(:name, nil, class: "form-control") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:description, "Description") %>
+  <%= text_area_tag(:description, nil, class: "form-control") %>
+  </div>
+  <div class="form-group">
+  <%= label_tag(:stakeholder, "Author(s), Composer(s), Artist(s), Director(s), Actor(s)...") %>
+  <%= text_field_tag(:stakeholder, nil, class: "form-control") %>
+  </div>
+  <%= submit_tag("Create", class: "btn btn-primary") %>
+  <%= link_to "Back to My Items", user_items_path, class: "btn btn-default" %>
+<% end %>
