@@ -28,6 +28,8 @@ class ItemsController < ApplicationController
   end
 
   def show
+    session[:back_url] = request.referer
+    @item = Item.find(params[:id])
   end
 
   def update

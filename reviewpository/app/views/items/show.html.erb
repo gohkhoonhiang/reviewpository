@@ -1,0 +1,26 @@
+<%= render "search" %>
+
+<div class="row">
+  <div class="col-md-3">
+    <a href="#" class="thumbnail">
+      <%= image_tag(@item.image.nil? ? (@item.category == "book" ? "book_256_256.png" : (@item.category == "music" ? "music_256_256.png" : "movie_256_256.png")) : @item.image, title: @item.name, size: "128x128", class: "media-object") %>
+    </a>
+  </div>
+  <div class="col-md-8">
+    <p class="lead">
+      <strong><%= @item.name %></strong><br>
+      <% if @item.stakeholders != nil %>
+        <em><small><%= @item.stakeholders.map{|s| s.name}.join(",") %></small></em>
+      <% end %>
+    </p>
+    <p class="justify"><%= @item.description %></p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <p class="pull-right">
+      <%= link_to "Back", back_url, class: "btn btn-default" %>
+    </p>
+  </div>
+</div>
+<hr>
