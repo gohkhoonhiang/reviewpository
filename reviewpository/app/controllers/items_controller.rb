@@ -50,6 +50,7 @@ class ItemsController < ApplicationController
   end
 
   def user_items
+    @my_items = Item.where(:user_id => current_user.id).page(params[:page]).per(5)
   end
 
   def reset
