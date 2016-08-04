@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
       stakeholder.item = item
       stakeholder.save
     end
-    redirect_to "/items/listing"
+    redirect_to "/user/items"
   end
 
   def new
