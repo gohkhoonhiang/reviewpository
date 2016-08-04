@@ -42,6 +42,14 @@
           <blockquote>
             <h4 class="media-heading">
               <%= review.title %>&nbsp;
+              <% if review.star != nil && review.star > 0 %>
+              <% review.star.times do |s| %>
+              <span class="glyphicon glyphicon-star"></span>
+              <% end %>
+              <% (5 - review.star).times do |s| %>
+              <span class="glyphicon glyphicon-star-empty"></span>
+              <% end %>
+              <% end %>
             </h4>
             <p><%= review.content %></p>
             <footer><cite><%= review.user.username %> on <%= review.created_at %></cite></footer>
@@ -103,6 +111,9 @@
         </h4>
         <div class="form-group">
           <%= text_area_tag(:content, nil, class: "form-control", placeholder: "Your review...") %>
+        </div>
+        <div class="form-group">
+          <%= number_field_tag(:star, nil, min: 1, max: 5, class: "form-control", placeholder: "Your rating") %>
         </div>
         <%= hidden_field_tag(:item_id, @item.id) %>
         <%= submit_tag("Review", class: "btn btn-default pull-right") %>

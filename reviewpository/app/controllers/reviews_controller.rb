@@ -10,6 +10,7 @@ class ReviewsController < ApplicationController
     review = item.reviews.new
     review.title = params[:title]
     review.content = params[:content]
+    review.star = params[:star]
     review.user = current_user
     review.save
     redirect_to item_path(item)
