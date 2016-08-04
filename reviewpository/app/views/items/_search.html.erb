@@ -1,13 +1,14 @@
-<div class="row main-search">
-  <h1 class="text-center">Reviews that matter</h1>
+<div class="row">
   <div class="col-md-8 col-md-offset-2">
     <%= form_tag("/items/query", method: "get") do %>
       <div class="form-group">
-        <%= text_field_tag(:q, nil, class: "form-control", placeholder: "Name, author, composer, artist, director, actor...") %>
+        <%= text_field_tag(:q, prev_search, class: "form-control", placeholder: "Name, author, composer, artist, director, actor...") %>
       </div>
       <div class="pull-right">
       <%= submit_tag("Search", class: "btn btn-info") %>
+      <%= link_to "Reset", items_reset_path, class: "btn btn-default" %>
       </div>
     <% end %>
   </div>
 </div>
+<hr>

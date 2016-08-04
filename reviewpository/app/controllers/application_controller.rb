@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :back_url, :prev_search
   before_filter :require_login
 
   def current_user
@@ -15,5 +15,13 @@ class ApplicationController < ActionController::Base
     unless current_user
       redirect_to root_url
     end
+  end
+
+  def back_url
+    session[:back_url] ||= "/"
+  end
+
+  def prev_search
+    session[:prev_search] ||= ""
   end
 end

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'account/settings', to: 'users#edit'
   get 'items/listing', to: 'items#index'
   get 'user/items', to: 'items#user_items'
+  get 'items/reset', to: 'items#reset'
 
   resources :users, except: [:edit, :new, :create]
   resources :items, except: [:index]
