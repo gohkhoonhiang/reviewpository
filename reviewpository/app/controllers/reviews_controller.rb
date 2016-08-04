@@ -6,6 +6,13 @@ class ReviewsController < ApplicationController
   end
 
   def create
+    item = Item.find(params[:item_id])
+    review = item.reviews.new
+    review.title = params[:title]
+    review.content = params[:content]
+    review.user = current_user
+    review.save
+    redirect_to item_path(item)
   end
 
   def edit
