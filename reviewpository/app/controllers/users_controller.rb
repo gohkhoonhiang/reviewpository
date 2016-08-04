@@ -18,9 +18,20 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
   end
 
   def update
+    @user = current_user
+    if @user.authenticate(user_params[:old_password])
+      if user_params[:email] != nil && !user_params[:email].empty?
+        @user.update_attribute(:email, user_params[:email])
+      end
+      if user_params[:password] != nil && !user_params[:password].empty?
+        @user.update_attribute(:password, user_params[:password])
+      end
+    end
+    redirect_to "/account/settings"
   end
 
   def destroy
@@ -29,6 +40,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :avatar, :old_password)
   end
 end
