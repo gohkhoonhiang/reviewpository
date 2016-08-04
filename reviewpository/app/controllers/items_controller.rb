@@ -25,6 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
   end
 
   def show
@@ -33,6 +34,18 @@ class ItemsController < ApplicationController
   end
 
   def update
+    @item = Item.find(params[:id])
+    @item.update_attribute(:name, item_params[:name])
+    @item.update_attribute(:description, item_params[:description])
+    Stakeholder.where(item_id: @item.id).delete_all
+    stakeholders = item_params[:stakeholder].split(",")
+    stakeholders.each do |s|
+      stakeholder = Stakeholder.new
+      stakeholder.name = s
+      stakeholder.item = @item
+      stakeholder.save
+    end
+    redirect_to edit_item_path(@item)
   end
 
   def destroy
@@ -57,5 +70,11 @@ class ItemsController < ApplicationController
     session[:back_url] = ""
     session[:prev_search] = ""
     redirect_to items_listing_path
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:category, :name, :description, :stakeholder)
   end
 end
