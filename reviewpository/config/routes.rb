@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'items/listing', to: 'items#index'
   get 'user/items', to: 'items#user_items'
   get 'items/reset', to: 'items#reset'
+  post 'like/review/:id', to: 'reviews#like', as: :like_review
+  post 'dislike/review/:id', to: 'reviews#dislike', as: :dislike_review
 
   resources :users, except: [:edit, :new, :create]
   resources :items, except: [:index]

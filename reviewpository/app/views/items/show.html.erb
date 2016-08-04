@@ -54,6 +54,14 @@
             <p><%= review.content %></p>
             <footer><cite><%= review.user.username %> on <%= review.created_at %></cite></footer>
           </blockquote>
+          <div class="btn-group" role="group">
+            <%= link_to(like_review_path(review), method: "post", class: "btn btn-sm") do %>
+              <%= content_tag(:span, " " + (review.like != nil ? review.like : 0).to_s, class: "glyphicon glyphicon-thumbs-up") %>
+            <% end %>
+            <%= link_to(dislike_review_path(review), method: "post", class: "btn btn-sm") do %>
+              <%= content_tag(:span, " " + (review.dislike != nil ? review.dislike : 0).to_s, class: "glyphicon glyphicon-thumbs-down") %>
+            <% end %>
+          </div>
           <% if review.comments != nil && !review.comments.empty? %>
             <% review.comments.each do |comment| %>
             <div class="media">
