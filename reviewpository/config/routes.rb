@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'items/reset', to: 'items#reset'
   post 'like/review/:id', to: 'reviews#like', as: :like_review
   post 'dislike/review/:id', to: 'reviews#dislike', as: :dislike_review
+  post 'like/comment/:id', to: 'comments#like', as: :like_comment
+  post 'dislike/comment/:id', to: 'comments#dislike', as: :dislike_comment
 
   resources :users, except: [:edit, :new, :create]
   resources :items, except: [:index]

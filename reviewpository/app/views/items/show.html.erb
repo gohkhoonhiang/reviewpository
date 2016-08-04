@@ -75,6 +75,14 @@
                 <p><%= comment.content %></p>
                 <footer><cite><%= comment.user.username %> on <%= comment.created_at %></cite></footer>
                 </blockquote>
+                <div class="btn-group" role="group">
+                  <%= link_to(like_comment_path(comment), method: "post", class: "btn btn-sm") do %>
+                    <%= content_tag(:span, " " + (comment.like != nil ? comment.like : 0).to_s, class: "glyphicon glyphicon-thumbs-up") %>
+                  <% end %>
+                  <%= link_to(dislike_comment_path(comment), method: "post", class: "btn btn-sm") do %>
+                    <%= content_tag(:span, " " + (comment.dislike != nil ? comment.dislike : 0).to_s, class: "glyphicon glyphicon-thumbs-down") %>
+                  <% end %>
+                </div>
               </div>
             </div>
             <% end %>
