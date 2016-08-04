@@ -43,6 +43,42 @@
             <p><%= review.content %></p>
             <footer><cite><%= review.user.username %> on <%= review.created_at %></cite></footer>
           </blockquote>
+          <% if review.comments != nil && !review.comments.empty? %>
+            <% review.comments.each do |comment| %>
+            <div class="media">
+              <div class="media-left">
+                <a href="#">
+                  <%= image_tag(review.user.avatar.nil? ? "avatar_200_200.png" : review.user.avatar, title: review.user.username, size: "32x32", class: "media-object") %>
+                </a>
+              </div>
+              <div class="media-body">
+                <blockquote>
+                <p><%= comment.content %></p>
+                <footer><cite><%= comment.user.username %> on <%= comment.created_at %></cite></footer>
+                </blockquote>
+              </div>
+            </div>
+            <% end %>
+          <% end %>
+          <% if logged_in? %>
+          <div class="media">
+            <div class="media-left">
+              <a href="#">
+                <%= image_tag(current_user.avatar.nil? ? "avatar_200_200.png" : current_user.avatar, title: current_user.username, size: "32x32", class: "media-object") %>
+              </a>
+            </div>
+            <div class="media-body">
+              <%= form_tag("/comments", method: "post") do %>
+                <div class="form-group">
+                  <%= text_area_tag(:content, nil, class: "form-control", placeholder: "My comment...") %>
+                </div>
+                <%= hidden_field_tag(:review_id, review.id) %>
+                <%= hidden_field_tag(:item_id, @item.id) %>
+                <%= submit_tag("Comment", class: "btn btn-default") %>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
         </div>
       </div>
       <% end %>
