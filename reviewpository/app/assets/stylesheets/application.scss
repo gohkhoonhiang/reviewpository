@@ -15,6 +15,24 @@
 
 body {
   margin-top: 70px;
+  margin-bottom: 50px;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 0;
+  right: 200px;
+  padding: 10px;
+  background-color: #ddd;
+  opacity: 0.5;
+}
+
+.back-to-top > a:link,
+.back-to-top > a:hover,
+.back-to-top > a:visited,
+.back-to-top > a:active {
+  text-decoration: none;
+  color: #000;
 }
 
 @import "*";
