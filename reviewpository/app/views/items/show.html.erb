@@ -31,7 +31,8 @@
   <div class="col-md-8 col-md-offset-2">
     <h3>Reviews</h3>
     <% if @item.reviews != nil && !@item.reviews.empty? %>
-      <% @item.reviews.each do |review| %>
+      <% reviews = @item.reviews.sort { |a,b| ((b.like-b.dislike) <=> (a.like-a.dislike)) } %>
+      <% reviews.each do |review| %>
       <div class="media">
         <div class="media-left">
           <a href="#">
@@ -63,7 +64,8 @@
             <% end %>
           </div>
           <% if review.comments != nil && !review.comments.empty? %>
-            <% review.comments.each do |comment| %>
+            <% comments = review.comments.sort { |a,b| ((b.like-b.dislike) <=> (a.like-a.dislike)) } %>
+            <% comments.each do |comment| %>
             <div class="media">
               <div class="media-left">
                 <a href="#">
