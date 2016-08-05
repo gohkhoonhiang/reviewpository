@@ -31,6 +31,9 @@ class UsersController < ApplicationController
         @user.update_attribute(:password, user_params[:password])
       end
     end
+    if user_params[:avatar] != nil
+      @user.update_attribute(:avatar, user_params[:avatar])
+    end
     redirect_to "/account/settings"
   end
 

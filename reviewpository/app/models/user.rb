@@ -10,4 +10,6 @@ class User < ApplicationRecord
   validates :email, :presence => true
 
   has_secure_password
+
+  mount_uploader :avatar, AvatarUploader
 end
