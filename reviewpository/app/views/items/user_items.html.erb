@@ -7,38 +7,18 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <%= paginate @my_items %>
+    <%= paginate @items %>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <table class="table table-bordered">
-    <% @my_items.each do |item| %>
-      <tr>
-        <td>
-          <div class="media">
-            <div class="media-left media-middle">
-              <a href="#">
-                <%= image_tag(item.image.nil? ? (item.category == "book" ? "book_256_256.png" : (item.category == "music" ? "music_256_256.png" : "movie_256_256.png")) : item.image, title: item.name, size: "128x128", class: "media-object") %>
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading"><%= item.name %></h4>
-              <p><%= item.description %></p>
-              <p><span class="pull-right"><em><%= link_to "Continue reading...", item_path(item) %></em></span></p>
-            </div>
-          </div>
-        </td>
-        <td>
-          stars
-        </td>
-      </tr>
-    <% end %>
+      <%= render "listing" %>
     </table>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <%= paginate @my_items %>
+    <%= paginate @items %>
   </div>
 </div>

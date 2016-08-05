@@ -8,31 +8,7 @@
 <div class="row">
   <div class="col-md-12">
     <table class="table table-bordered">
-    <% @items.each do |item| %>
-      <tr>
-        <td class="col-md-10">
-          <div class="media">
-            <div class="media-left media-middle">
-              <a href="#">
-                <%= image_tag(item.image.nil? ? (item.category == "book" ? "book_256_256.png" : (item.category == "music" ? "music_256_256.png" : "movie_256_256.png")) : item.image, title: item.name, size: "128x128", class: "media-object") %>
-              </a>
-            </div>
-            <div class="media-body">
-              <h4 class="media-heading"><%= item.name %></h4>
-              <p class="item-description"><%= item.description.truncate(500) %></p>
-              <p><span class="pull-right"><em><%= link_to "Continue reading...", item_path(item) %></em></span></p>
-            </div>
-          </div>
-        </td>
-        <td class="col-md-2">
-          <p><% 5.times do |s| %><span class="glyphicon glyphicon-star"></span><% end %> - <%= item.reviews.group(:star).count[5].nil? ? 0 : item.reviews.group(:star).count[5] %></p>
-          <p><% 4.times do |s| %><span class="glyphicon glyphicon-star"></span><% end %><% 1.times do |s| %><span class="glyphicon glyphicon-star-empty"></span><% end %> - <%= item.reviews.group(:star).count[4].nil? ? 0 : item.reviews.group(:star).count[4] %></p>
-          <p><% 3.times do |s| %><span class="glyphicon glyphicon-star"></span><% end %><% 2.times do |s| %><span class="glyphicon glyphicon-star-empty"></span><% end %> - <%= item.reviews.group(:star).count[3].nil? ? 0 : item.reviews.group(:star).count[3] %></p>
-          <p><% 2.times do |s| %><span class="glyphicon glyphicon-star"></span><% end %><% 3.times do |s| %><span class="glyphicon glyphicon-star-empty"></span><% end %> - <%= item.reviews.group(:star).count[2].nil? ? 0 : item.reviews.group(:star).count[2] %></p>
-          <p><% 1.times do |s| %><span class="glyphicon glyphicon-star"></span><% end %><% 4.times do |s| %><span class="glyphicon glyphicon-star-empty"></span><% end %> - <%= item.reviews.group(:star).count[1].nil? ? 0 : item.reviews.group(:star).count[1] %></p>
-        </td>
-      </tr>
-    <% end %>
+      <%= render "listing" %>
     </table>
   </div>
 </div>
