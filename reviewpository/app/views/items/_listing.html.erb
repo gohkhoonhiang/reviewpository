@@ -4,7 +4,7 @@
       <div class="media">
         <div class="media-left media-middle">
           <a href="#">
-            <%= image_tag(item.image.nil? ? (item.category == "book" ? "book_256_256.png" : (item.category == "music" ? "music_256_256.png" : "movie_256_256.png")) : item.image, title: item.name, size: "128x128", class: "media-object") %>
+            <%= image_tag(item.image.url.nil? ? (item.category == "book" ? "book_256_256.png" : (item.category == "music" ? "music_256_256.png" : "movie_256_256.png")) : item.image.url, title: item.name, size: "128x128", class: "media-object") %>
           </a>
         </div>
         <div class="media-body">

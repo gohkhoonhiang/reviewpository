@@ -10,6 +10,7 @@ class ItemsController < ApplicationController
     item.category = params[:category]
     item.name = params[:name]
     item.description = params[:description]
+    item.image = params[:image]
     item.save
     stakeholders = params[:stakeholder].split(",")
     stakeholders.each do |s|
@@ -37,6 +38,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.update_attribute(:name, item_params[:name])
     @item.update_attribute(:description, item_params[:description])
+    if item_params[:image] != nil
+      @item.update_attribute(:image, item_params[:image])
+    end
     Stakeholder.where(item_id: @item.id).delete_all
     stakeholders = item_params[:stakeholder].split(",")
     stakeholders.each do |s|
@@ -45,7 +49,7 @@ class ItemsController < ApplicationController
       stakeholder.item = @item
       stakeholder.save
     end
-    redirect_to edit_item_path(@item)
+    redirect_to item_path(@item)
   end
 
   def destroy
@@ -75,6 +79,6 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:category, :name, :description, :stakeholder)
+    params.require(:item).permit(:category, :name, :description, :stakeholder, :image)
   end
 end
