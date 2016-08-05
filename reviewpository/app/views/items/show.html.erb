@@ -33,7 +33,7 @@
     <% if @item.reviews != nil && !@item.reviews.empty? %>
       <% reviews = @item.reviews.sort { |a,b| ((b.like-b.dislike) <=> (a.like-a.dislike)) } %>
       <% reviews.each do |review| %>
-      <div class="media">
+      <div class="media<%= (review.like - review.dislike) < 0 ? ' bad-review' : '' %>">
         <div class="media-left">
           <a href="#">
             <%= image_tag(review.user.avatar.url.nil? ? "avatar_200_200.png" : review.user.avatar.url, title: review.user.username, size: "64x64", class: "media-object") %>

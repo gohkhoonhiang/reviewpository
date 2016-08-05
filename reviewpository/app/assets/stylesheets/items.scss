@@ -9,3 +9,11 @@
 p.item-description {
   height: 100px;
 }
+
+div.bad-review {
+  opacity: 0.5;
+}
+
+div.bad-review:hover {
+  opacity: 1;
+}
