@@ -6,23 +6,30 @@ class ItemsController < ApplicationController
   end
 
   def create
-    item = current_user.items.new
-    item.category = params[:category]
-    item.name = params[:name]
-    item.description = params[:description]
-    item.image = params[:image]
-    item.save
-    stakeholders = params[:stakeholder].split(",")
-    stakeholders.each do |s|
-      stakeholder = Stakeholder.new
-      stakeholder.name = s
-      stakeholder.item = item
-      stakeholder.save
+    Item.transaction do
+      @item = current_user.items.new
+      if @item.update(item_params)
+        stakeholders = item_params[:stakeholder].split(",")
+        stakeholders.each do |s|
+          @stakeholder = @item.stakeholders.new
+          @stakeholder.name = s
+          if !@stakeholder.save
+            flash.now[:alert] = "Create stakeholder failed"
+            render :new
+            return
+          end
+        end
+        flash[:notice] = "Item created"
+        redirect_to user_items_url
+      else
+        flash.now[:alert] = "Create item failed"
+        render :new
+      end
     end
-    redirect_to "/user/items"
   end
 
   def new
+    @item = Item.new
   end
 
   def edit
@@ -35,21 +42,27 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params[:id])
-    @item.update_attribute(:name, item_params[:name])
-    @item.update_attribute(:description, item_params[:description])
-    if item_params[:image] != nil
-      @item.update_attribute(:image, item_params[:image])
+    Item.transaction do
+      @item = Item.find(params[:id])
+      if @item.update(item_params)
+        Stakeholder.where(item_id: @item.id).delete_all
+        stakeholders = item_params[:stakeholder].split(",")
+        stakeholders.each do |s|
+          @stakeholder = @item.stakeholders.new
+          @stakeholder.name = s
+          if !@stakeholder.save
+            flash.now[:alert] = "Update stakeholder failed"
+            render :edit
+            return
+          end
+        end
+        flash[:notice] = "Item updated"
+        redirect_to item_url(@item)
+      else
+        flash.now[:alert] = "Update item failed"
+        render :edit
+      end
     end
-    Stakeholder.where(item_id: @item.id).delete_all
-    stakeholders = item_params[:stakeholder].split(",")
-    stakeholders.each do |s|
-      stakeholder = Stakeholder.new
-      stakeholder.name = s
-      stakeholder.item = @item
-      stakeholder.save
-    end
-    redirect_to item_path(@item)
   end
 
   def destroy
