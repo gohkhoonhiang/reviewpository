@@ -5,16 +5,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:username] && params[:password]
-      user = User.find_by(username: params[:username])
-      if user && user.authenticate(params[:password])
-        session[:username] = params[:username]
-        redirect_to "/user/items"
-      else
-        render :new
-      end
+    user = User.find_by(username: params[:username])
+    if !user.nil? && user.authenticate(params[:password])
+      session[:username] = params[:username]
+      redirect_to user_items_url
     else
-      render :new
+      flash[:login] = "Invalid username or password"
+      redirect_to root_url
     end
   end
 
