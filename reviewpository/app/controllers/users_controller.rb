@@ -26,18 +26,13 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.authenticate(user_params[:old_password])
-      if user_params[:email] != nil && !user_params[:email].empty?
-        @user.update_attribute(:email, user_params[:email])
-      end
-      if user_params[:password] != nil && !user_params[:password].empty?
-        @user.update_attribute(:password, user_params[:password])
-      end
+    if @user.update(user_params)
+      flash[:notice] = "Account updated"
+      redirect_to account_settings_url
+    else
+      flash.now[:alert] = "Validation errors"
+      render :edit
     end
-    if user_params[:avatar] != nil
-      @user.update_attribute(:avatar, user_params[:avatar])
-    end
-    redirect_to "/account/settings"
   end
 
   def destroy

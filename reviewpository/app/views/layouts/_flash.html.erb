@@ -1,0 +1,23 @@
+<% if !flash.empty? %>
+  <% if flash.notice != nil && !flash.notice.empty? %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p><strong>Success!</strong> <%= flash.notice %></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% if flash.alert != nil && !flash.alert.empty? %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <p><strong>Error!</strong> <%= flash.alert %></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+<% end %>
+

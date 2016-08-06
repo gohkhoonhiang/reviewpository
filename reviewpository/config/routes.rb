@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   get 'items/query', to: 'items#query'
   get 'account/settings', to: 'users#edit'
+  patch 'account/settings', to: 'users#update'
   get 'items/listing', to: 'items#index'
   get 'user/items', to: 'items#user_items'
   get 'items/reset', to: 'items#reset'
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   post 'like/comment/:id', to: 'comments#like', as: :like_comment
   post 'dislike/comment/:id', to: 'comments#dislike', as: :dislike_comment
 
-  resources :users, except: [:edit, :new, :create]
+  resources :users, except: [:edit, :new, :create, :update]
   resources :items, except: [:index]
   resources :reviews
   resources :comments
