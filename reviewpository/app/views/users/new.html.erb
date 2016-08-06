@@ -1,25 +1,35 @@
 <h1>Signup</h1>
 
-<%= form_for @user, url: {action: "create"} do |f| %>
-  <div class="form-group">
-    <%= f.label :username %>
-    <%= f.text_field :username, class: "form-control" %>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for @user, url: {action: "create"}, builder: ApplicationHelper::BootstrapFormBuilder do |f| %>
+      <%= f.form_group :username do |g| %>
+        <%= f.label :username, class: "control-label" %>
+        <%= f.text_field :username, class: "form-control" %>
+        <%= f.help_block :username %>
+      <% end %>
+      <%= f.form_group :email do |g| %>
+        <%= f.label :email, class: "control-label" %>
+        <%= f.text_field :email, class: "form-control" %>
+        <%= f.help_block :email %>
+      <% end %>
+      <%= f.form_group :password do |g| %>
+        <%= f.label :password, class: "control-label" %>
+        <%= f.password_field :password, class: "form-control" %>
+        <%= f.help_block :password %>
+      <% end %>
+      <%= f.form_group :password_confirmation do |g| %>
+        <%= f.label :password_confirmation, class: "control-label" %>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+        <%= f.help_block :password_confirmation %>
+      <% end %>
+      <%= f.form_group :avatar do |g| %>
+        <%= f.label :avatar, class: "control-label" %>
+        <%= f.file_field :avatar, class: "form-control" %>
+        <%= f.help_block :avatar %>
+      <% end %>
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
   </div>
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.text_field :email, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :avatar %>
-    <%= f.file_field :avatar, class: "form-control" %>
-  </div>
-  <%= f.submit "Submit", class: "btn btn-primary" %>
-<% end %>
+</div>
+
