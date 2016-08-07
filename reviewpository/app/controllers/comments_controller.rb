@@ -37,13 +37,13 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.like += 1
     @comment.save
-    redirect_to(@comment.review.item)
+    redirect_to item_url(@comment.review.item)
   end
 
   def dislike
     @comment = Comment.find(params[:id])
     @comment.dislike += 1
     @comment.save
-    redirect_to(@comment.review.item)
+    redirect_to item_url(@comment.review.item)
   end
 end

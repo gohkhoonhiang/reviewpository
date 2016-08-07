@@ -38,13 +38,13 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @review.like += 1
     @review.save
-    redirect_to(@review.item)
+    redirect_to item_url(@review.item)
   end
 
   def dislike
     @review = Review.find(params[:id])
     @review.dislike += 1
     @review.save
-    redirect_to(@review.item)
+    redirect_to item_url(@review.item)
   end
 end
