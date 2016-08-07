@@ -5,7 +5,7 @@
 <div class="row">
   <div class="col-md-3">
     <a href="#" class="thumbnail">
-      <%= image_tag(@item.image.url.nil? ? (@item.category == "book" ? "book_256_256.png" : (@item.category == "music" ? "music_256_256.png" : "movie_256_256.png")) : @item.image.url, title: @item.name, size: "128x128", class: "media-object") %>
+      <%= image_tag @item.image.url.nil? ? (@item.category == "book" ? "book_256_256.png" : (@item.category == "music" ? "music_256_256.png" : "movie_256_256.png")) : @item.image.url, title: @item.name, size: "128x128", class: "media-object" %>
     </a>
   </div>
   <div class="col-md-8">
@@ -38,7 +38,7 @@
       <div class="media<%= (review.like - review.dislike) < 0 ? ' bad-review' : '' %>">
         <div class="media-left">
           <a href="#">
-            <%= image_tag(review.user.avatar.url.nil? ? "avatar_200_200.png" : review.user.avatar.url, title: review.user.username, size: "64x64", class: "media-object") %>
+            <%= image_tag review.user.avatar.url.nil? ? "avatar_200_200.png" : review.user.avatar.url, title: review.user.username, size: "64x64", class: "media-object" %>
           </a>
         </div>
         <div class="media-body">
@@ -58,11 +58,11 @@
             <footer><cite><%= review.user.username %> on <%= review.created_at %></cite></footer>
           </blockquote>
           <div class="btn-group" role="group">
-            <%= link_to(like_review_path(review), method: "post", class: "btn btn-sm") do %>
-              <%= content_tag(:span, " " + (review.like != nil ? review.like : 0).to_s, class: "glyphicon glyphicon-thumbs-up") %>
+            <%= link_to like_review_path(review), method: "post", class: "btn btn-sm" do %>
+              <%= content_tag :span, " " + (review.like != nil ? review.like : 0).to_s, class: "glyphicon glyphicon-thumbs-up" %>
             <% end %>
-            <%= link_to(dislike_review_path(review), method: "post", class: "btn btn-sm") do %>
-              <%= content_tag(:span, " " + (review.dislike != nil ? review.dislike : 0).to_s, class: "glyphicon glyphicon-thumbs-down") %>
+            <%= link_to dislike_review_path(review), method: "post", class: "btn btn-sm" do %>
+              <%= content_tag :span, " " + (review.dislike != nil ? review.dislike : 0).to_s, class: "glyphicon glyphicon-thumbs-down" %>
             <% end %>
           </div>
           <% if review.comments != nil && !review.comments.empty? %>
@@ -71,7 +71,7 @@
             <div class="media">
               <div class="media-left">
                 <a href="#">
-                  <%= image_tag(review.user.avatar.url.nil? ? "avatar_200_200.png" : review.user.avatar.url, title: review.user.username, size: "32x32", class: "media-object") %>
+                  <%= image_tag review.user.avatar.url.nil? ? "avatar_200_200.png" : review.user.avatar.url, title: review.user.username, size: "32x32", class: "media-object" %>
                 </a>
               </div>
               <div class="media-body">
@@ -80,11 +80,11 @@
                 <footer><cite><%= comment.user.username %> on <%= comment.created_at %></cite></footer>
                 </blockquote>
                 <div class="btn-group" role="group">
-                  <%= link_to(like_comment_path(comment), method: "post", class: "btn btn-sm") do %>
-                    <%= content_tag(:span, " " + (comment.like != nil ? comment.like : 0).to_s, class: "glyphicon glyphicon-thumbs-up") %>
+                  <%= link_to like_comment_path(comment), method: "post", class: "btn btn-sm" do %>
+                    <%= content_tag :span, " " + (comment.like != nil ? comment.like : 0).to_s, class: "glyphicon glyphicon-thumbs-up" %>
                   <% end %>
-                  <%= link_to(dislike_comment_path(comment), method: "post", class: "btn btn-sm") do %>
-                    <%= content_tag(:span, " " + (comment.dislike != nil ? comment.dislike : 0).to_s, class: "glyphicon glyphicon-thumbs-down") %>
+                  <%= link_to dislike_comment_path(comment), method: "post", class: "btn btn-sm" do %>
+                    <%= content_tag :span, " " + (comment.dislike != nil ? comment.dislike : 0).to_s, class: "glyphicon glyphicon-thumbs-down" %>
                   <% end %>
                 </div>
               </div>
@@ -95,17 +95,17 @@
           <div class="media">
             <div class="media-left">
               <a href="#">
-                <%= image_tag(current_user.avatar.url.nil? ? "avatar_200_200.png" : current_user.avatar.url, title: current_user.username, size: "32x32", class: "media-object") %>
+                <%= image_tag current_user.avatar.url.nil? ? "avatar_200_200.png" : current_user.avatar.url, title: current_user.username, size: "32x32", class: "media-object" %>
               </a>
             </div>
             <div class="media-body">
-              <%= form_tag("/comments", method: "post") do %>
+              <%= form_tag comments_path, method: :post do %>
                 <div class="form-group">
-                  <%= text_area_tag(:content, nil, class: "form-control", placeholder: "My comment...") %>
+                  <%= text_area_tag :content, nil, class: "form-control", placeholder: "My comment..." %>
                 </div>
-                <%= hidden_field_tag(:review_id, review.id) %>
-                <%= hidden_field_tag(:item_id, @item.id) %>
-                <%= submit_tag("Comment", class: "btn btn-default") %>
+                <%= hidden_field_tag :review_id, review.id %>
+                <%= hidden_field_tag :item_id, @item.id %>
+                <%= submit_tag "Comment", class: "btn btn-default" %>
               <% end %>
             </div>
           </div>
@@ -121,22 +121,22 @@
     <div class="media">
       <div class="media-left">
         <a href="#">
-          <%= image_tag(current_user.avatar.url.nil? ? "avatar_200_200.png" : current_user.avatar.url, title: current_user.username, size: "64x64", class: "media-object") %>
+          <%= image_tag current_user.avatar.url.nil? ? "avatar_200_200.png" : current_user.avatar.url, title: current_user.username, size: "64x64", class: "media-object" %>
         </a>
       </div>
       <div class="media-body">
-        <%= form_tag("/reviews", method: "post") do %>
+        <%= form_tag reviews_path, method: :post do %>
         <h4 class="media-heading">
-          <%= text_field_tag(:title, nil, class: "form-control", placeholder: "Title") %>
+          <%= text_field_tag :title, nil, class: "form-control", placeholder: "Title" %>
         </h4>
         <div class="form-group">
-          <%= text_area_tag(:content, nil, class: "form-control", placeholder: "Your review...") %>
+          <%= text_area_tag :content, nil, class: "form-control", placeholder: "Your review..." %>
         </div>
         <div class="form-group">
-          <%= number_field_tag(:star, nil, min: 1, max: 5, class: "form-control", placeholder: "Your rating") %>
+          <%= number_field_tag :star, nil, min: 1, max: 5, class: "form-control", placeholder: "Your rating" %>
         </div>
-        <%= hidden_field_tag(:item_id, @item.id) %>
-        <%= submit_tag("Review", class: "btn btn-default pull-right") %>
+        <%= hidden_field_tag :item_id, @item.id %>
+        <%= submit_tag "Review", class: "btn btn-default pull-right" %>
         <% end %>
       </div>
     </div>
