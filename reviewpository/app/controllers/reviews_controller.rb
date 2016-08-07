@@ -7,15 +7,19 @@ class ReviewsController < ApplicationController
 
   def create
     item = Item.find(params[:item_id])
-    review = item.reviews.new
-    review.title = params[:title]
-    review.content = params[:content]
-    review.star = params[:star]
-    review.like = 0
-    review.dislike = 0
-    review.user = current_user
-    review.save
-    redirect_to item_path(item)
+    @review = item.reviews.new
+    @review.title = params[:title]
+    @review.content = params[:content]
+    @review.star = params[:star]
+    @review.like = 0
+    @review.dislike = 0
+    @review.user = current_user
+    if @review.save
+      flash[:notice] = "Review posted"
+    else
+      flash[:alert] = "Review posting failed. " + @review.errors.full_messages.join(", ")
+    end
+    redirect_to item_url(item)
   end
 
   def edit
