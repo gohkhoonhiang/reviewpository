@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  skip_before_action :require_login, :only => [:index, :search, :show]
+  skip_before_action :require_login, :only => [:index, :search, :show, :query]
 
   def index
     @items = Item.all.page(params[:page]).per(5)
